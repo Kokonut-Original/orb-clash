@@ -1,0 +1,76 @@
+{
+  "name": "orbclash",
+  "productName": "Orb Clash",
+  "version": "1.0.0",
+  "description": "Orb Clash - game đấu bóng vật lý",
+  "author": "Trần Đức Long (Kokonut-Original)",
+  "main": "main.js",
+  "scripts": {
+    "prebuild-game": "python ../build.py",
+    "start": "electron .",
+    "dist": "python ../build.py && electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "io.github.kokonut.orbclash",
+    "productName": "Orb Clash",
+    "artifactName": "OrbClash-Setup.exe",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../OrbClash-offline.html",
+        "to": "OrbClash-offline.html"
+      },
+      {
+        "from": "../src",
+        "to": "src",
+        "filter": [
+          "*.js"
+        ]
+      },
+      {
+        "from": "../server",
+        "to": "server",
+        "filter": [
+          "**/*",
+          "!selftest.js",
+          "!package-lock.json"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Orb Clash",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    }
+  },
+  "allowScripts": {
+    "electron@33.4.11": true
+  }
+}

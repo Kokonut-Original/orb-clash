@@ -1,0 +1,7 @@
+node_modules/
+electron/dist/
+all.js
+orb-clash.html
+*.log
+# chứa mật khẩu admin dạng chữ thường — không công khai
+PROMPT-ClaudeCode.md

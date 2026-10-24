@@ -282,7 +282,7 @@ async function muralTalk(){
 }
 let PLATE_SEQ=[];
 function plateStep(tx,ty){
-  const order=["19,10","3,10","12,11"],key=tx+","+ty;PLATE_SEQ.push(key);sfx.tick();
+  const order=["19,10","4,10","12,11"],key=tx+","+ty;PLATE_SEQ.push(key);sfx.tick();
   const ok=PLATE_SEQ.every((k,i)=>k===order[i]);
   if(!ok){PLATE_SEQ=[];sfx.wall();ST.shake=4;stRun(()=>say(null,"(Những cái gai rung lên giận dữ. Các tấm đá trở lại như cũ.)"));return}
   if(PLATE_SEQ.length===3){sv().flags.puzzle=true;ST.map=ST.map.map(r=>r.replace(/x/g,","));sfx.reveal("epic");ST.shake=6;stRun(()=>say(null,"(Bụi gai rút xuống đất như vừa được nhắc tên. Đường đã mở.)"))}

@@ -150,6 +150,7 @@ function castFx(b){
   const el=b.def.el||"arcane",c=EL_COL[el]||EL_COL.arcane,cx=b.x,cy=b.y,R=b.r,n=Math.max(4,Math.round(16*FXQ.p));
   b.cast=.5;
   G.glyphs.push({x:cx,y:cy,r:R,def:b.def,t:0,dur:.75});
+  if(b.def.call){G.callout={txt:pick(b.def.call),t:0,dur:1.2,c:b.def.color,side:b.side};if(sfx.callout)sfx.callout()}
   ring(cx,cy,R,R+50,c[0],.5,5);ring(cx,cy,R*.6,R+100,c[1],.75,2);
   G.flashes.push({x:cx,y:cy,r:R*3.4,t:0,dur:.32,c:c[0]});
   const P=o=>G.parts.push(Object.assign({life:rand(.5,1),max:1},o));
@@ -417,6 +418,7 @@ function stepFx(dt){
   if(G.ko)G.ko.t+=dt;
   G.go=Math.max(0,G.go-dt);
   if(G.banner){G.banner.t+=dt;if(G.banner.t>G.banner.dur)G.banner=null}
+  if(G.callout){G.callout.t+=dt;if(G.callout.t>G.callout.dur)G.callout=null}
   ambStep(dt);
 }
 
@@ -587,6 +589,7 @@ function render(){
     if(n>=1){bigText(G.label||"HIỆP "+G.round,H/2-110,30,"#C3AEFF","#F5EFFF",0,false);ctx.save();ctx.translate(W/2,H/2+10);const s=1+f*.6;ctx.scale(s,s);ctx.globalAlpha=Math.min(1,(1-f)*3);ctx.translate(-W/2,-(H/2+10));bigText(String(n),H/2+10,150,"#36E2FF","#FF4D7A",0,false);ctx.restore()}}
   if(G.go>0){const t=1-G.go/.9;ctx.save();ctx.globalAlpha=Math.min(1,G.go*2.5);ctx.translate(W/2,H/2);const s=t<.15?2.4-t/.15*1.4:1+(t-.15)*.25;ctx.scale(s,s);ctx.rotate(-.06);ctx.translate(-W/2,-H/2);bigText("ĐẤU!",H/2,120,"#FFC23D","#FF4D7A",0,true);ctx.restore()}
   if(G.banner){const b=G.banner,t=b.t/b.dur;ctx.save();ctx.globalAlpha=Math.min(1,(1-t)*3,b.t*6);ctx.translate(W/2,H/2-40);const s=b.t<.15?1.8-b.t/.15*.8:1;ctx.scale(s,s);ctx.translate(-W/2,-(H/2-40));bigText(b.txt,H/2-40,b.size||58,b.c||"#FFFFFF",b.c2||"#FFC23D",0,true);if(b.sub){ctx.globalAlpha*=.9;bigText(b.sub,H/2+12,18,"#F5EFFF","#C3AEFF",0,false)}ctx.restore()}
+  if(G.callout){const k=G.callout,tt=k.t/k.dur,y=k.side===0?H-110:115;ctx.save();ctx.globalAlpha=Math.min(1,(1-tt)*4,k.t*12);ctx.translate(W/2,y);const s=k.t<.12?1.9-k.t/.12*.9:1+(k.t-.12)*.06;ctx.scale(s,s);ctx.rotate(-.05);ctx.translate(-W/2,-y);const sz=Math.min(50,Math.max(24,900/Math.max(10,k.txt.length)));bigText(k.txt,y,sz,"#FFFFFF",k.c,0,k.t<.18);ctx.restore()}
   if(G.ko){const t=G.ko.t;ctx.save();ctx.globalAlpha=Math.min(1,t*4);ctx.translate(W/2,H/2);const s=t<.2?3-t/.2*2:1;ctx.scale(s,s);ctx.translate(-W/2,-H/2);bigText("K.O.",H/2-20,140,"#FFFFFF","#FFC23D",0,true);ctx.restore();
     if(t>.6){const txt=G.koTxt?G.koTxt(G.winner):G.winner===0?"THẮNG HIỆP":G.winner===1?"THUA HIỆP":"HOÀ";ctx.globalAlpha=Math.min(1,(t-.6)*4);bigText(txt,H/2+90,36,G.winner===1?"#FF4D7A":"#36E2FF",G.winner===1?"#FFB23D":"#5CF2A8",0,false);ctx.globalAlpha=1}}
   if(FXQ.bloom)bloomPass();

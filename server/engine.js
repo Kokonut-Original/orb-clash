@@ -1,7 +1,7 @@
 /* Chạy nguyên engine của game (src/*.js) trong một vm context với DOM giả → mô phỏng trận không cần trình duyệt. */
 const vm=require("vm"),fs=require("fs"),path=require("path");
 const SRC=path.join(__dirname,"..","src");
-const FILES=["3-data.js","4-engine.js","5-ui.js","6-arenas.js","7-modes.js","8-merge.js","9-boxes.js","10-admin.js"];
+const FILES=["3-data.js","3d-onepiece.js","4-engine.js","5-ui.js","6-arenas.js","7-modes.js","8-merge.js","9-boxes.js","10-admin.js"];
 let script=null;
 function load(){
   if(script)return script;

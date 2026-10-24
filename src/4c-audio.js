@@ -43,6 +43,7 @@ Object.assign(sfx,{
       wind:()=>{noise(.6,.1,1200,1.5,0,"bandpass",.4);tone(400,.4,"sine",.03,400,0,.4)},
       arcane:()=>{[0,1,2].forEach(i=>tone([523,784,1175][i],.4,"triangle",.04,40,i*.06,.6))}}[el]||null;
     (t||(()=>{tone(520,.14,"triangle",.04,380);tone(1040,.18,"sine",.025,200,.05)}))()},
+  callout:()=>{noise(.4,.1,1800,1.2,0,"bandpass",.35);tone(260,.35,"sawtooth",.05,420,0,.35);tone(1300,.25,"triangle",.03,-600,.05,.3)},
   win:()=>{[0,4,7,12,16].forEach((n,i)=>tone(523*Math.pow(2,n/12),.45,"triangle",.06,0,i*.09,.5));tone(1047,.9,"sine",.05,0,.5,.6)},
   reveal:r=>{const base=[523,659,784,988,1175][RARS.indexOf(r)];[0,1,2,3].forEach(i=>tone(base*[1,1.25,1.5,2][i],.35,"triangle",.05,0,i*.08,.5));if(RARS.indexOf(r)>=3){noise(.9,.08,9000,.5,0,"highpass",.5);tone(base*4,1.2,"sine",.03,0,.35,.8)}},
 });

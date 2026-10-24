@@ -177,7 +177,7 @@ const EL={
   wind:"comet candy gum dot echo waylay parallax astra veto gambit retort",
 };
 const EL_OF={};for(const k in EL)for(const id of EL[k].split(" "))EL_OF[id]=k;
-for(const b of BALLS){b.el=EL_OF[b.id]||"arcane"}
+for(const b of BALLS){b.el=b.el||EL_OF[b.id]||"arcane"}
 
 /* — vẽ icon — */
 const _icCache=new Map();

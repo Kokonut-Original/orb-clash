@@ -8,6 +8,7 @@
 function puff(x,y,r,c,a){if(a<=0||r<=0)return;const ga=ctx.globalAlpha;ctx.globalAlpha=clamp(a,0,1);ctx.drawImage(glowSprite(c),x-r,y-r,r*2,r*2);ctx.globalAlpha=ga}
 const _h=(i,k)=>{const s=Math.sin(i*127.1+k*311.7)*43758.5453;return s-Math.floor(s)};
 const ZFX={
+  room(z,f){const k=Math.min(1,z.t*5);ctx.save();ctx.fillStyle=`rgba(76,201,240,${.1*f})`;circle(z.x,z.y,z.r*k);ctx.fill();ctx.strokeStyle=`rgba(160,235,255,${.9*f})`;ctx.lineWidth=2.5;ctx.setLineDash([12,8]);ctx.lineDashOffset=-G.t*60;circle(z.x,z.y,z.r*k);ctx.stroke();ctx.restore()},
   smoke(z,f){const t=G.t;for(let k=0;k<7;k++){const a=k*.9+t*.25*(k%2?1:-1),d=z.r*(.15+.35*_h(k,1));puff(z.x+Math.cos(a)*d,z.y+Math.sin(a)*d,z.r*(.55+.2*_h(k,2)),k%3?"#4B3F7A":"#7B6CF6",.55*f)}
     puff(z.x,z.y,z.r*.7,"#1A1238",.6*f)},
   toxic(z,f){const t=G.t;for(let k=0;k<7;k++){const a=k*.9+t*.3*(k%2?1:-1),d=z.r*(.15+.4*_h(k,3));puff(z.x+Math.cos(a)*d,z.y+Math.sin(a)*d,z.r*(.5+.2*_h(k,4)),k%2?"#2ECC71":"#7DDB3A",.42*f)}
@@ -30,6 +31,7 @@ const ZFX={
   arc(z,f){glowAt(z.x,z.y,z.r*1.8,"#00F0FF",.55*f);ctx.strokeStyle=`rgba(220,255,255,${.85*f})`;ctx.lineWidth=1.6;ctx.beginPath();let x=z.x-z.r,y=z.y;ctx.moveTo(x,y);for(let k=1;k<=5;k++){x=z.x-z.r+k*z.r*.4;y=z.y+rand(-z.r*.6,z.r*.6);ctx.lineTo(x,y)}ctx.stroke()},
 };
 const PSKIN={
+  heart(p){ctx.save();ctx.translate(p.x,p.y);glowAt(0,0,20,"#FF6AA8",.7);ctx.fillStyle="#FF6AA8";ctx.beginPath();ctx.moveTo(0,6);ctx.bezierCurveTo(-9,-1,-6,-9,0,-4);ctx.bezierCurveTo(6,-9,9,-1,0,6);ctx.fill();ctx.restore()},
   arrow(p){const a=Math.atan2(p.vy,p.vx);ctx.save();ctx.translate(p.x,p.y);ctx.rotate(a);glowAt(0,0,22,"#3DDC97",.6);
     ctx.strokeStyle="#EFFFF6";ctx.lineWidth=2.4;ctx.beginPath();ctx.moveTo(-16,0);ctx.lineTo(6,0);ctx.stroke();
     ctx.fillStyle="#3DDC97";ctx.beginPath();ctx.moveTo(12,0);ctx.lineTo(3,-5);ctx.lineTo(3,5);ctx.closePath();ctx.fill();

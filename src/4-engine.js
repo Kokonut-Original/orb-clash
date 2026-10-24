@@ -170,7 +170,7 @@ function castFx(b){
   else if(el==="earth"){G.shake=Math.min(26,G.shake+5);ripple(cx,cy,14)}
   else if(el==="water"){ripple(cx,cy,12)}
   else if(el==="dark"){G.tint={c:"#8A5CFF",t:.25}}
-  G.shake=Math.min(26,G.shake+3);sfx.cast();
+  G.shake=Math.min(26,G.shake+3);sfx.cast(el);
 }
 function impact(x,y,nx,ny,amt,cA,cB,crit){
   const k=clamp(amt/12,.3,3);
